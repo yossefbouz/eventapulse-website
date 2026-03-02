@@ -1,5 +1,6 @@
 import PhoneMockup from "../PhoneMockup";
 import { screenshots } from "../../data/screenshots";
+import { useFadeIn } from "../../hooks/useFadeIn";
 
 const previewCards = [
   {
@@ -25,8 +26,9 @@ const previewCards = [
 ];
 
 export default function ProductPreview() {
+  const ref = useFadeIn<HTMLElement>();
   return (
-    <section className="home-v2-section home-v2-preview" aria-labelledby="home-v2-preview-title">
+    <section ref={ref} className="home-v2-section home-v2-preview fade-in-section" aria-labelledby="home-v2-preview-title">
       <div className="home-v2-container">
         <header className="home-v2-section__header">
           <p>Product Preview</p>

@@ -1,8 +1,10 @@
 import RBProfileCard from "../RBProfileCard.jsx";
+import { useFadeIn } from "../../hooks/useFadeIn";
 
 export default function TeamSection() {
+  const ref = useFadeIn<HTMLElement>();
   return (
-    <section className="home-v2-section home-v2-team" id="aboutus" aria-labelledby="home-v2-team-title">
+    <section ref={ref} className="home-v2-section home-v2-team fade-in-section" id="aboutus" aria-labelledby="home-v2-team-title">
       <div className="home-v2-container">
         <header className="home-v2-section__header">
           <p>About EventaPulse</p>

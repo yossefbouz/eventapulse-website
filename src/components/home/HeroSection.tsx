@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import Iridescence from "../Iridescence";
 import TextPressure from "../TextPressure.jsx";
-import PhoneMockup from "../PhoneMockup";
-import { screenshots } from "../../data/screenshots";
 
 export default function HeroSection() {
   return (
@@ -18,48 +16,45 @@ export default function HeroSection() {
       <div className="home-v2-hero__orb home-v2-hero__orb--pink" />
       <div className="home-v2-hero__orb home-v2-hero__orb--blue" />
 
-      <div className="home-v2-container home-v2-hero__inner">
-        <div className="home-v2-hero__copy">
-          <p className="home-v2-kicker">Event Discovery Platform • Cyprus</p>
-          <div className="home-v2-hero__pressure">
-            <TextPressure
-              text="EVENTAPULSE"
-              minFontSize={28}
-              textColor="#fff6fd"
-              stroke={false}
-              width
-              weight
-              italic={false}
-              alpha={false}
-            />
-          </div>
-          <h1 id="home-v2-hero-title">Your Pulse on Every Event in Cyprus</h1>
-          <p>
-            Discover, book, and save on the best experiences across Cyprus in one trusted app for users and
-            organizers.
-          </p>
+      <div className="home-v2-container home-v2-hero__inner home-v2-hero__inner--centered">
+        <p className="home-v2-kicker home-v2-hero__kicker">Event Discovery Platform • Cyprus</p>
 
-          <div className="home-v2-hero__actions">
-            <Link to="/users" className="home-v2-btn home-v2-btn--primary">
-              Explore Events
-            </Link>
-            <Link to="/organizers" className="home-v2-btn home-v2-btn--ghost">
-              List Your Event
-            </Link>
-          </div>
+        <div className="home-v2-hero__pressure">
+          <TextPressure
+            text="EVENTAPULSE"
+            minFontSize={32}
+            textColor="#fff6fd"
+            stroke={false}
+            width
+            weight
+            italic={false}
+            alpha={false}
+          />
         </div>
 
-        <div className="home-v2-hero__device">
-          <PhoneMockup
-            src={screenshots.eventDetail}
-            alt="Event detail screen inside the EventaPulse app"
-            glow="pink"
-          />
-          <p>Real app preview: event details, ticketing, and instant checkout.</p>
+        <h1 id="home-v2-hero-title" className="home-v2-hero__tagline">
+          Your guide to unforgettable experiences
+        </h1>
+
+        <p className="home-v2-hero__sub">
+          Discover, book, and save on the best events across Cyprus — one trusted app for everyone.
+        </p>
+
+        <div className="home-v2-hero__actions home-v2-hero__actions--centered">
+          <Link to="/users" className="home-v2-btn home-v2-btn--primary">
+            Explore Events
+          </Link>
+          <Link to="/organizers" className="home-v2-btn home-v2-btn--ghost">
+            List Your Event
+          </Link>
         </div>
       </div>
 
-      <a className="home-v2-scroll-indicator" href="#home-proof" aria-label="Scroll to proof section">
+      <a
+        className="home-v2-scroll-indicator"
+        href="#home-proof"
+        aria-label="Scroll to proof section"
+      >
         <span />
         Scroll
       </a>

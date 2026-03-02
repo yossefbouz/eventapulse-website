@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import CircularText from "../CircularText.jsx";
+import { useFadeIn } from "../../hooks/useFadeIn";
 
 export default function FinalCTA() {
+  const ref = useFadeIn<HTMLElement>();
   return (
-    <section className="home-v2-section home-v2-final-cta" id="join" aria-labelledby="home-v2-final-title">
+    <section ref={ref} className="home-v2-section home-v2-final-cta fade-in-section" id="join" aria-labelledby="home-v2-final-title">
       <div className="home-v2-container home-v2-final-cta__inner">
         <div className="home-v2-final-cta__copy">
           <p>Final Call</p>

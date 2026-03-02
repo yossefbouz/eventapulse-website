@@ -1,5 +1,6 @@
 import { BadgeCheck, Building2, Layers3, ShieldCheck } from "lucide-react";
 import NumberTicker from "./NumberTicker";
+import { useFadeIn } from "../../hooks/useFadeIn";
 
 const stats = [
   {
@@ -33,8 +34,9 @@ const stats = [
 ] as const;
 
 export default function ProofBar() {
+  const ref = useFadeIn<HTMLElement>();
   return (
-    <section id="home-proof" className="home-v2-proof" aria-label="Trust and proof metrics">
+    <section ref={ref} id="home-proof" className="home-v2-proof fade-in-section" aria-label="Trust and proof metrics">
       <div className="home-v2-container">
         <div className="home-v2-proof__grid">
           {stats.map((stat, index) => (

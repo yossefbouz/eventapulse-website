@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import SpotlightCard from "../SpotlightCard";
 import PhoneMockup from "../PhoneMockup";
 import { screenshots } from "../../data/screenshots";
+import { useFadeIn } from "../../hooks/useFadeIn";
 
 const paths = [
   {
@@ -36,8 +37,9 @@ const paths = [
 ];
 
 export default function SplitEntry() {
+  const ref = useFadeIn<HTMLElement>();
   return (
-    <section className="home-v2-section home-v2-split-entry" aria-labelledby="home-v2-split-title">
+    <section ref={ref} className="home-v2-section home-v2-split-entry fade-in-section" aria-labelledby="home-v2-split-title">
       <div className="home-v2-container">
         <header className="home-v2-section__header">
           <p>Choose Your Path</p>

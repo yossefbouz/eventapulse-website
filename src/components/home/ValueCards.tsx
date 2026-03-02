@@ -1,5 +1,6 @@
 import { BarChart3, ScanSearch, ShieldCheck, Ticket } from "lucide-react";
 import SpotlightCard from "../SpotlightCard";
+import { useFadeIn } from "../../hooks/useFadeIn";
 
 const values = [
   {
@@ -25,8 +26,9 @@ const values = [
 ];
 
 export default function ValueCards() {
+  const ref = useFadeIn<HTMLElement>();
   return (
-    <section className="home-v2-section home-v2-values" aria-labelledby="home-v2-values-title">
+    <section ref={ref} className="home-v2-section home-v2-values fade-in-section" aria-labelledby="home-v2-values-title">
       <div className="home-v2-container">
         <header className="home-v2-section__header">
           <p>Why EventaPulse</p>
