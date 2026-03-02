@@ -21,6 +21,9 @@ export default function MainLayout() {
 
   return (
     <>
+      <a href="#main-content" className="skip-to-content">
+        Skip to content
+      </a>
       <header className="main-header">
         <div className="pill-nav-shell">
           <Link to="/" className="pill-brand">
@@ -65,7 +68,7 @@ export default function MainLayout() {
         </div>
       </header>
 
-      <main>
+      <main id="main-content">
         <Outlet />
       </main>
 
