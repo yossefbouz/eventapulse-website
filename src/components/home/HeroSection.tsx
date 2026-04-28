@@ -68,11 +68,6 @@ export default function HeroSection() {
             <span className="v3-gradient-text v3-shine">One app.</span>
           </h1>
 
-          <p className="v3-hero__sub">
-            Discover, book, and save on concerts, festivals, workshops, and
-            hidden gems across Nicosia, Larnaca, Limassol, Paphos, and Ayia Napa.
-          </p>
-
           <div className="v3-hero__actions">
             <Link to="/users" className="v3-btn v3-btn--primary">
               Explore Events
