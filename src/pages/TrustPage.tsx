@@ -7,7 +7,7 @@ import { useSeo, seoData } from "../utils/seo";
 export default function TrustPage() {
   useSeo(seoData.trust);
   return (
-    <div className="page-shell page-shell--trust" id="top">
+    <div className="v3-page" id="top">
       <TrustHero />
       <SafetyPillars />
       <FeeTransparency />

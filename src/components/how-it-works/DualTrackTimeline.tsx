@@ -1,143 +1,80 @@
-import {
-  Map,
-  QrCode,
-  ShieldCheck,
-  Ticket,
-  TrendingUp,
-  UserPlus,
-  type LucideIcon,
-} from "lucide-react";
-import PhoneMockup from "../PhoneMockup";
-import { screenshots } from "../../data/screenshots";
+import { motion, useReducedMotion } from "motion/react";
 
-type TimelineStep = {
-  icon: LucideIcon;
-  title: string;
-  body: string;
-  screenshot?: string;
-  alt?: string;
-};
+const EASE = [0.22, 1, 0.36, 1] as const;
 
-const attendeeSteps: TimelineStep[] = [
-  {
-    icon: UserPlus,
-    title: "Sign Up",
-    body: "Create your account, choose your city, and pick your interests.",
-  },
-  {
-    icon: Map,
-    title: "Discover",
-    body: "Browse events by city, category, date, or explore the map.",
-    screenshot: screenshots.mapView,
-    alt: "Map view showing events across Cyprus",
-  },
-  {
-    icon: Ticket,
-    title: "Get Tickets",
-    body: "Select your tier, checkout with Stripe, and receive your QR ticket instantly.",
-    screenshot: screenshots.checkout,
-    alt: "Checkout screen with ticket tiers and transparent fee breakdown",
-  },
-  {
-    icon: QrCode,
-    title: "Attend",
-    body: "Show your QR code at the door and get scanned in — no paper, no hassle.",
-  },
+const attendees = [
+  { n: "1", title: "Open the app", body: "Download EventaPulse and sign in — no hoops." },
+  { n: "2", title: "Pick your city", body: "From Nicosia to Ayia Napa, choose where you are." },
+  { n: "3", title: "Browse feed + map", body: "A personal feed plus a live map of what's happening." },
+  { n: "4", title: "Tap to book", body: "Buy in seconds with secure Stripe checkout." },
+  { n: "5", title: "Show ticket at the door", body: "QR scans in under a second. You're in." },
 ];
 
-const organizerSteps: TimelineStep[] = [
-  {
-    icon: ShieldCheck,
-    title: "Get Verified",
-    body: "Apply as an organizer and our admin team reviews your profile.",
-  },
-  {
-    icon: UserPlus,
-    title: "Create Event",
-    body: "Use the multi-step form to set tiers, upload media, and configure details.",
-    screenshot: screenshots.organizerHub,
-    alt: "Organizer hub with Create Event, Venues, and Payouts",
-  },
-  {
-    icon: Ticket,
-    title: "Go Live",
-    body: "Admin approves your event and it appears in the discovery feed with a verified badge.",
-    screenshot: screenshots.organizerEvents,
-    alt: "Organizer events showing LIVE, SELLING, and PENDING statuses",
-  },
-  {
-    icon: TrendingUp,
-    title: "Earn",
-    body: "Track analytics and revenue in real time. Payouts go directly to your bank via Stripe Connect.",
-  },
+const organizers = [
+  { n: "1", title: "Sign up", body: "Create an organizer account and verify your identity." },
+  { n: "2", title: "Create an event", body: "Add details, media, and venue in a single form." },
+  { n: "3", title: "Set pricing", body: "Tiers, promos, early-bird discounts — your call." },
+  { n: "4", title: "Publish", body: "Go live across EventaPulse. Share the link anywhere." },
+  { n: "5", title: "Scan tickets", body: "Check guests in at the door from your phone." },
 ];
 
-function TrackColumn({
-  label,
-  accent,
-  steps,
-}: {
-  label: string;
-  accent: string;
-  steps: TimelineStep[];
-}) {
+function Track({ title, tone, steps }: { title: string; tone: "coral" | "violet"; steps: typeof attendees }) {
+  const reduce = useReducedMotion();
   return (
-    <div className="dual-track__column">
-      <h3 className="dual-track__label" style={{ color: accent }}>
-        {label}
-      </h3>
-      <div className="dual-track__steps">
-        {steps.map((step, index) => (
-          <article key={step.title} className="dual-track__step">
-            <div className="dual-track__marker" style={{ borderColor: accent }}>
-              <span style={{ background: accent }}>{index + 1}</span>
+    <motion.div
+      className={`v3-how-track v3-how-track--${tone}`}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+    >
+      <motion.header
+        className="v3-how-track__head"
+        initial={reduce ? false : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
+        <span className={`v3-split__tag v3-split__tag--${tone}`}>{title}</span>
+      </motion.header>
+      <ol className="v3-how-track__list">
+        <span className="v3-how-track__line" aria-hidden="true" />
+        {steps.map((s) => (
+          <motion.li
+            key={s.n}
+            className="v3-how-track__step"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+            }}
+          >
+            <span className={`v3-how-track__node v3-how-track__node--${tone}`}>{s.n}</span>
+            <div>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
             </div>
-            <div className="dual-track__content">
-              <div className="dual-track__icon-row">
-                <step.icon size={18} aria-hidden="true" />
-                <h4>{step.title}</h4>
-              </div>
-              <p>{step.body}</p>
-              {step.screenshot && (
-                <div className="dual-track__phone">
-                  <PhoneMockup
-                    src={step.screenshot}
-                    alt={step.alt!}
-                    glow={label === "Attendee Path" ? "blue" : "amber"}
-                  />
-                </div>
-              )}
-            </div>
-          </article>
+          </motion.li>
         ))}
-      </div>
-    </div>
+      </ol>
+    </motion.div>
   );
 }
 
 export default function DualTrackTimeline() {
   return (
-    <section
-      className="page-section dual-track"
-      aria-labelledby="dual-track-title"
-    >
-      <div className="page-container">
-        <header className="page-section__header">
-          <p>The Journey</p>
-          <h2 id="dual-track-title">Two paths to one platform</h2>
+    <section className="v3-section v3-how-dual" aria-labelledby="v3-how-dual-title">
+      <div className="v3-container">
+        <header className="v3-section__header">
+          <p className="v3-eyebrow">The journey</p>
+          <h2 id="v3-how-dual-title">
+            Two paths that{" "}
+            <span className="v3-gradient-text">meet in the middle.</span>
+          </h2>
         </header>
 
-        <div className="dual-track__grid">
-          <TrackColumn
-            label="Attendee Path"
-            accent="#70d5ff"
-            steps={attendeeSteps}
-          />
-          <TrackColumn
-            label="Organizer Path"
-            accent="#ffd26f"
-            steps={organizerSteps}
-          />
+        <div className="v3-how-dual__grid">
+          <Track title="For attendees" tone="coral" steps={attendees} />
+          <Track title="For organizers" tone="violet" steps={organizers} />
         </div>
       </div>
     </section>

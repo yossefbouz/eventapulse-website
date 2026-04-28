@@ -1,75 +1,60 @@
-import { BarChart3, Megaphone, QrCode, Ticket, Users, Wallet } from "lucide-react";
-import SpotlightCard from "../SpotlightCard";
-import PhoneMockup from "../PhoneMockup";
-import { screenshots } from "../../data/screenshots";
+import { ChartBar, QrCode, Wallet, CreditCard, Building2, Tag } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const tools = [
-  {
-    icon: Megaphone,
-    title: "Exposure",
-    body: "Featured and standard listing tiers to amplify your reach across Cyprus.",
-    size: "normal" as const,
-  },
-  {
-    icon: Ticket,
-    title: "Ticketing",
-    body: "Multi-tier tickets with dynamic pricing — Early Bird, General, VIP, and custom options.",
-    size: "normal" as const,
-  },
-  {
-    icon: QrCode,
-    title: "QR Scanner",
-    body: "Scan tickets at the door. Track attendance in real time with manual entry fallback.",
-    size: "large" as const,
-    screenshot: screenshots.scanner,
-    alt: "QR scanner showing 168/420 attendance",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics",
-    body: "Views, conversions, revenue tracking, and city-level insights — all in your dashboard.",
-    size: "normal" as const,
-  },
-  {
-    icon: Wallet,
-    title: "Payouts",
-    body: "Stripe Connect direct deposits. Track pending, completed, and upcoming payouts.",
-    size: "normal" as const,
-  },
-  {
-    icon: Users,
-    title: "CRM",
-    body: "Collect attendee data, build audience segments, and retarget for your next event.",
-    size: "normal" as const,
-  },
+  { icon: ChartBar, title: "Real-time sales", body: "Watch ticket revenue move live as people buy.", tone: "violet" as const },
+  { icon: QrCode, title: "Scan at the door", body: "Native QR scanner. Offline fallback. No queues.", tone: "magenta" as const },
+  { icon: Wallet, title: "Transparent fees", body: "3% + €0.30 per ticket. No surprises at checkout.", tone: "coral" as const },
+  { icon: CreditCard, title: "Stripe payouts", body: "Get paid directly to your bank via Stripe Connect.", tone: "violet" as const },
+  { icon: Building2, title: "Multi-venue support", body: "Run a club, a festival, a workshop — one dashboard.", tone: "magenta" as const },
+  { icon: Tag, title: "Promo codes", body: "Reward your loyal crowd. Track conversion per code.", tone: "coral" as const },
 ];
 
 export default function OrganizerToolkit() {
+  const reduce = useReducedMotion();
   return (
-    <section className="page-section org-toolkit" aria-labelledby="org-toolkit-title">
-      <div className="page-container">
-        <header className="page-section__header">
-          <p>Organizer Toolkit</p>
-          <h2 id="org-toolkit-title">Everything you need to run events end to end</h2>
-        </header>
+    <section className="v3-section v3-org-toolkit" aria-labelledby="v3-org-toolkit-title">
+      <div className="v3-container">
+        <motion.header
+          className="v3-section__header"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
+          <p className="v3-eyebrow">Your toolkit</p>
+          <h2 id="v3-org-toolkit-title">
+            Every tool you need.{" "}
+            <span className="v3-gradient-text">In one dashboard.</span>
+          </h2>
+        </motion.header>
 
-        <div className="org-toolkit__grid">
-          {tools.map((tool) => (
-            <SpotlightCard
-              key={tool.title}
-              className={`org-toolkit__card ${tool.size === "large" ? "org-toolkit__card--large" : ""}`}
+        <motion.div
+          className="v3-values__grid v3-org-toolkit__grid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+        >
+          {tools.map((t) => (
+            <motion.article
+              key={t.title}
+              className="v3-value"
+              variants={{
+                hidden: { opacity: 0, y: 28 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+              }}
             >
-              <tool.icon size={22} aria-hidden="true" />
-              <h3>{tool.title}</h3>
-              <p>{tool.body}</p>
-              {tool.screenshot && (
-                <div className="org-toolkit__card-phone">
-                  <PhoneMockup src={tool.screenshot} alt={tool.alt!} glow="amber" />
-                </div>
-              )}
-            </SpotlightCard>
+              <div className={`v3-value__icon v3-value__icon--${t.tone}`}>
+                <t.icon size={20} aria-hidden="true" />
+              </div>
+              <h3>{t.title}</h3>
+              <p>{t.body}</p>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

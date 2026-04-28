@@ -399,6 +399,18 @@
   -webkit-background-clip: text;
 }
 
+.home-v2-profile-card {
+  width: 100%;
+}
+
+.home-v2-profile-card .pc-card {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  min-height: 0;
+  aspect-ratio: 0.72;
+}
+
 @keyframes glow-bg {
   0% {
     --bgrotate: 0deg;
@@ -429,6 +441,12 @@
   .pc-card {
     height: 70svh;
     max-height: 450px;
+  }
+
+  .home-v2-profile-card .pc-card {
+    height: auto;
+    max-height: none;
+    aspect-ratio: 0.72;
   }
 
   .pc-details {
@@ -475,6 +493,12 @@
   .pc-card {
     height: 60svh;
     max-height: 380px;
+  }
+
+  .home-v2-profile-card .pc-card {
+    height: auto;
+    max-height: none;
+    aspect-ratio: 0.72;
   }
 
   .pc-details {

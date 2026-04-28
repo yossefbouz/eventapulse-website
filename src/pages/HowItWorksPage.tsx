@@ -6,7 +6,7 @@ import { useSeo, seoData } from "../utils/seo";
 export default function HowItWorksPage() {
   useSeo(seoData.howItWorks);
   return (
-    <div className="page-shell page-shell--how" id="top">
+    <div className="v3-page" id="top">
       <HowHero />
       <DualTrackTimeline />
       <EcosystemSummary />

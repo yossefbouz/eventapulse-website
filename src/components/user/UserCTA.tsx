@@ -1,32 +1,41 @@
 import { Link } from "react-router-dom";
-import PhoneMockup from "../PhoneMockup";
-import { screenshots } from "../../data/screenshots";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function UserCTA() {
+  const reduce = useReducedMotion();
   return (
-    <section className="page-section user-cta" aria-labelledby="user-cta-title">
-      <div className="page-container user-cta__inner">
-        <div className="user-cta__copy">
-          <p className="page-kicker-sm">Get Started</p>
-          <h2 id="user-cta-title">Start discovering events in Cyprus today</h2>
-          <div className="user-cta__actions">
-            <Link to="/contact" className="page-btn page-btn--primary">
-              Download on App Store
-            </Link>
-            <Link to="/contact" className="page-btn page-btn--ghost">
-              Get it on Google Play
-            </Link>
-          </div>
-        </div>
+    <section className="v3-final" aria-labelledby="v3-users-cta-title">
+      <div className="v3-final__mesh" aria-hidden="true" />
+      <div className="v3-final__noise" aria-hidden="true" />
 
-        <div className="user-cta__device">
-          <PhoneMockup
-            src={screenshots.userProfile}
-            alt="User profile showing activity, settings, and ticket wallet"
-            glow="blue"
-          />
+      <motion.div
+        className="v3-container v3-final__inner"
+        initial={reduce ? false : { opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.9, ease: EASE }}
+      >
+        <p className="v3-eyebrow v3-eyebrow--light">Almost here</p>
+        <h2 id="v3-users-cta-title" className="v3-final__title">
+          Ready to stop{" "}
+          <span className="v3-gradient-text v3-gradient-text--warm">missing out?</span>
+        </h2>
+        <p className="v3-final__sub">
+          Join the waitlist. Be first when we launch in Cyprus.
+        </p>
+        <div className="v3-final__actions">
+          <Link to="/contact" className="v3-btn v3-btn--primary v3-btn--large">
+            Join the waitlist
+            <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+          <Link to="/how-it-works" className="v3-btn v3-btn--ghost v3-btn--large">
+            How it works
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

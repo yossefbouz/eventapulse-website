@@ -1,64 +1,56 @@
-import PhoneMockup from "../PhoneMockup";
-import { screenshots } from "../../data/screenshots";
+import { motion, useReducedMotion } from "motion/react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const steps = [
-  {
-    step: 1,
-    label: "Create",
-    title: "Submit your event in minutes",
-    body: "Fill in event details, upload media, set ticket tiers and pricing — our multi-step form guides you through everything.",
-    image: screenshots.organizerHub,
-    alt: "Organizer hub with Create Event button and payout status",
-    glow: "amber" as const,
-  },
-  {
-    step: 2,
-    label: "Go Live",
-    title: "Admin reviews and approves your listing",
-    body: "Our team reviews every submission within 48 hours. Once approved, your event goes live with a verified badge across the platform.",
-    image: screenshots.organizerEvents,
-    alt: "Organizer events list with LIVE, SELLING, and PENDING statuses",
-    glow: "pink" as const,
-  },
-  {
-    step: 3,
-    label: "Earn",
-    title: "Track performance and get paid",
-    body: "Monitor views, ticket sales, and revenue in real time. Payouts go directly to your bank via Stripe Connect — no delays.",
-    image: screenshots.organizerActivity,
-    alt: "Organizer activity showing payout status and recent activity",
-    glow: "blue" as const,
-  },
+  { n: "01", title: "Create event", body: "Name, date, media, venue — a single form." },
+  { n: "02", title: "Set pricing", body: "Multiple tiers, early-bird, promo codes." },
+  { n: "03", title: "Publish", body: "Go live across all EventaPulse surfaces." },
+  { n: "04", title: "Track", body: "Sales, check-ins, and payouts in real time." },
 ];
 
 export default function PublishFlow() {
+  const reduce = useReducedMotion();
   return (
-    <section className="page-section publish-flow" aria-labelledby="publish-flow-title">
-      <div className="page-container">
-        <header className="page-section__header">
-          <p>How It Works</p>
-          <h2 id="publish-flow-title">From submission to sold out</h2>
-        </header>
+    <section className="v3-section v3-org-publish" aria-labelledby="v3-org-publish-title">
+      <div className="v3-container">
+        <motion.header
+          className="v3-section__header"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
+          <p className="v3-eyebrow">From empty to sold out</p>
+          <h2 id="v3-org-publish-title">
+            Launch your event in{" "}
+            <span className="v3-gradient-text">under five minutes.</span>
+          </h2>
+        </motion.header>
 
-        <div className="publish-flow__steps">
-          {steps.map((s, index) => (
-            <article
-              key={s.step}
-              className={`publish-flow__step ${index % 2 === 1 ? "is-reversed" : ""}`}
+        <motion.ol
+          className="v3-org-publish__track"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+        >
+          <span className="v3-org-publish__line" aria-hidden="true" />
+          {steps.map((s) => (
+            <motion.li
+              key={s.n}
+              className="v3-org-publish__step"
+              variants={{
+                hidden: { opacity: 0, y: 28 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+              }}
             >
-              <div className="publish-flow__phone">
-                <PhoneMockup src={s.image} alt={s.alt} glow={s.glow} />
-              </div>
-              <div className="publish-flow__copy">
-                <span className="publish-flow__badge">
-                  Step {s.step} — {s.label}
-                </span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </div>
-            </article>
+              <span className="v3-org-publish__pill">{s.n}</span>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </motion.li>
           ))}
-        </div>
+        </motion.ol>
       </div>
     </section>
   );

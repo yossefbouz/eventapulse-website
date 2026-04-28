@@ -1,56 +1,80 @@
-import { BadgeCheck, Building2, Layers3, ShieldCheck } from "lucide-react";
+import { MapPin } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import NumberTicker from "./NumberTicker";
-import { useFadeIn } from "../../hooks/useFadeIn";
+
+const cities = [
+  "Nicosia",
+  "Larnaca",
+  "Limassol",
+  "Paphos",
+  "Ayia Napa",
+  "Protaras",
+  "Kyrenia",
+  "Platres",
+];
 
 const stats = [
-  {
-    label: "Cities",
-    value: 5,
-    suffix: "",
-    description: "Nicosia, Larnaca, Paphos, Ayia Napa, Limassol",
-    icon: Building2,
-  },
-  {
-    label: "Categories",
-    value: 6,
-    suffix: "",
-    description: "Cultural, Music, Seminars, Sports, Workshop, Food & Drink",
-    icon: Layers3,
-  },
-  {
-    label: "Verified Listings",
-    value: 100,
-    suffix: "%",
-    description: "Admin-reviewed event quality",
-    icon: BadgeCheck,
-  },
-  {
-    label: "Secure Payments",
-    value: 100,
-    suffix: "%",
-    description: "Protected checkout powered by Stripe",
-    icon: ShieldCheck,
-  },
-] as const;
+  { value: 1200, suffix: "+", label: "events indexed" },
+  { value: 5, suffix: "", label: "cities covered" },
+  { value: 100, suffix: "%", label: "free for attendees" },
+];
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ProofBar() {
-  const ref = useFadeIn<HTMLElement>();
+  const reduce = useReducedMotion();
+  const loop = [...cities, ...cities];
+
   return (
-    <section ref={ref} id="home-proof" className="home-v2-proof fade-in-section" aria-label="Trust and proof metrics">
-      <div className="home-v2-container">
-        <div className="home-v2-proof__grid">
-          {stats.map((stat, index) => (
-            <article key={stat.label} className="home-v2-proof__item">
-              <stat.icon size={18} aria-hidden="true" />
-              <p>
-                <NumberTicker value={stat.value} delay={index * 0.08} />
-                {stat.suffix}
-              </p>
-              <h2>{stat.label}</h2>
-              <span>{stat.description}</span>
-            </article>
+    <section id="home-proof" className="v3-proof" aria-labelledby="v3-proof-title">
+      <h2 id="v3-proof-title" className="v3-sr-only">
+        Cities and statistics
+      </h2>
+
+      <div
+        className="v3-marquee"
+        aria-hidden="true"
+        style={{ ["--marquee-duration" as string]: reduce ? "0s" : "42s" }}
+      >
+        <div className="v3-marquee__track">
+          {loop.map((city, i) => (
+            <div className="v3-marquee__item" key={`${city}-${i}`}>
+              <MapPin size={16} aria-hidden="true" />
+              <span>{city}</span>
+              <span className="v3-marquee__dot" />
+            </div>
           ))}
         </div>
+      </div>
+
+      <div className="v3-container">
+        <motion.div
+          className="v3-stats"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } },
+          }}
+        >
+          {stats.map((s) => (
+            <motion.div
+              key={s.label}
+              className="v3-stat"
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+              }}
+            >
+              <div className="v3-stat__num">
+                <NumberTicker value={s.value} />
+                {s.suffix}
+              </div>
+              <div className="v3-stat__label">{s.label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

@@ -1,29 +1,53 @@
 import { Link } from "react-router-dom";
-import CircularText from "../CircularText.jsx";
-import { useFadeIn } from "../../hooks/useFadeIn";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowRight } from "lucide-react";
+import { useMagnetic } from "./useMagnetic";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function FinalCTA() {
-  const ref = useFadeIn<HTMLElement>();
+  const reduce = useReducedMotion();
+  const primaryRef = useMagnetic<HTMLAnchorElement>(0.3);
+  const ghostRef = useMagnetic<HTMLAnchorElement>(0.22);
   return (
-    <section ref={ref} className="home-v2-section home-v2-final-cta fade-in-section" id="join" aria-labelledby="home-v2-final-title">
-      <div className="home-v2-container home-v2-final-cta__inner">
-        <div className="home-v2-final-cta__copy">
-          <p>Final Call</p>
-          <h2 id="home-v2-final-title">Ready to discover what&apos;s happening in Cyprus?</h2>
-          <div className="home-v2-final-cta__actions">
-            <Link to="/users" className="home-v2-btn home-v2-btn--primary">
-              Download the App
-            </Link>
-            <Link to="/contact" className="home-v2-btn home-v2-btn--ghost">
-              Partner with Us
-            </Link>
-          </div>
-        </div>
+    <section id="join" className="v3-final" aria-labelledby="v3-final-title">
+      <div className="v3-final__mesh" aria-hidden="true" />
+      <div className="v3-final__noise" aria-hidden="true" />
 
-        <div className="home-v2-final-cta__wheel" aria-hidden="true">
-          <CircularText text="EVENTAPULSE * DISCOVER * BOOK * SAVE * " spinDuration={14} onHover="speedUp" />
+      <motion.div
+        className="v3-container v3-final__inner"
+        initial={reduce ? false : { opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.9, ease: EASE }}
+      >
+        <p className="v3-eyebrow v3-eyebrow--light">Ready when you are</p>
+        <h2 id="v3-final-title" className="v3-final__title">
+          Ready to discover{" "}
+          <span className="v3-gradient-text v3-gradient-text--warm">Cyprus?</span>
+        </h2>
+        <p className="v3-final__sub">
+          Get early access. Be first in line when we launch.
+        </p>
+
+        <div className="v3-final__actions">
+          <Link
+            ref={primaryRef}
+            to="/contact"
+            className="v3-btn v3-btn--primary v3-btn--large v3-btn--magnetic"
+          >
+            Get Early Access
+            <ArrowRight size={18} aria-hidden="true" />
+          </Link>
+          <Link
+            ref={ghostRef}
+            to="/users"
+            className="v3-btn v3-btn--ghost v3-btn--large v3-btn--magnetic"
+          >
+            Preview the app
+          </Link>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

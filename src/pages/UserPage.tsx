@@ -7,7 +7,7 @@ import { useSeo, seoData } from "../utils/seo";
 export default function UserPage() {
   useSeo(seoData.users);
   return (
-    <div className="page-shell page-shell--user" id="top">
+    <div className="v3-page" id="top">
       <UserHero />
       <DiscoveryFlow />
       <UserFeatures />

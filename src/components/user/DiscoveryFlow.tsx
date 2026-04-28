@@ -1,64 +1,80 @@
-import PhoneMockup from "../PhoneMockup";
-import { screenshots } from "../../data/screenshots";
+import { motion, useReducedMotion } from "motion/react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const steps = [
   {
-    step: 1,
-    label: "Browse",
-    title: "Choose your city and interests",
-    body: "Pick from Nicosia, Larnaca, Paphos, Ayia Napa, or Limassol. Filter by category — Cultural, Music, Seminars, Sports, Workshop, or Food & Drink.",
-    image: screenshots.citySelection,
-    alt: "City selection screen showing 5 Cyprus cities",
-    glow: "blue" as const,
+    n: "01",
+    title: "Pick your city",
+    body: "Start where you are — or plan a weekend trip across the island.",
+    img: "/marketing/screens/IMG_7405.PNG",
+    alt: "City picker in the EventaPulse app",
   },
   {
-    step: 2,
-    label: "Discover",
-    title: "Find events nearby on the map or feed",
-    body: "See what's happening tonight with our live feed or switch to map view to find events near you with pinpoint accuracy.",
-    image: screenshots.mapView,
-    alt: "Map view showing events across Cyprus",
-    glow: "pink" as const,
+    n: "02",
+    title: "Find your vibe",
+    body: "Scroll a feed that learns what you love — from jazz nights to food markets.",
+    img: "/marketing/screens/IMG_7852.PNG",
+    alt: "Event feed showing a variety of Cyprus events",
   },
   {
-    step: 3,
-    label: "Go",
-    title: "Buy tickets instantly with transparent fees",
-    body: "Select your ticket tier, review the clear fee breakdown, and check out securely with Stripe — no hidden charges, just a flat EUR 1.00 platform fee.",
-    image: screenshots.checkout,
-    alt: "Checkout screen with ticket tiers and fee breakdown",
-    glow: "amber" as const,
+    n: "03",
+    title: "Book instantly",
+    body: "Secure Stripe checkout. Tickets land in your wallet in seconds.",
+    img: "/marketing/screens/IMG_7859.PNG",
+    alt: "Event detail with ticket purchase",
   },
 ];
 
 export default function DiscoveryFlow() {
+  const reduce = useReducedMotion();
   return (
-    <section className="page-section discovery-flow" aria-labelledby="discovery-flow-title">
-      <div className="page-container">
-        <header className="page-section__header">
-          <p>How It Works</p>
-          <h2 id="discovery-flow-title">Three steps to your next event</h2>
-        </header>
+    <section className="v3-section v3-users-flow" aria-labelledby="v3-users-flow-title">
+      <div className="v3-container">
+        <motion.header
+          className="v3-section__header"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
+          <p className="v3-eyebrow">Three taps to a ticket</p>
+          <h2 id="v3-users-flow-title">
+            From bored on the sofa to{" "}
+            <span className="v3-gradient-text v3-gradient-text--warm">out the door.</span>
+          </h2>
+          <p className="v3-section__sub">
+            No more digging through five different Instagram accounts. One app, every event, zero friction.
+          </p>
+        </motion.header>
 
-        <div className="discovery-flow__steps">
-          {steps.map((s, index) => (
-            <article
-              key={s.step}
-              className={`discovery-flow__step ${index % 2 === 1 ? "is-reversed" : ""}`}
+        <motion.ol
+          className="v3-users-flow__grid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
+        >
+          {steps.map((s) => (
+            <motion.li
+              key={s.n}
+              className="v3-users-flow__step"
+              variants={{
+                hidden: { opacity: 0, y: 28 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: EASE } },
+              }}
             >
-              <div className="discovery-flow__phone">
-                <PhoneMockup src={s.image} alt={s.alt} glow={s.glow} />
+              <div className="v3-users-flow__phone">
+                <span className="v3-users-flow__badge">{s.n}</span>
+                <div className="v3-users-flow__frame">
+                  <img src={s.img} alt={s.alt} loading="lazy" />
+                </div>
               </div>
-              <div className="discovery-flow__copy">
-                <span className="discovery-flow__badge">
-                  Step {s.step} — {s.label}
-                </span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </div>
-            </article>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </motion.li>
           ))}
-        </div>
+        </motion.ol>
       </div>
     </section>
   );

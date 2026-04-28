@@ -1,49 +1,78 @@
-import { BarChart3, ScanSearch, ShieldCheck, Ticket } from "lucide-react";
-import SpotlightCard from "../SpotlightCard";
-import { useFadeIn } from "../../hooks/useFadeIn";
+import { Compass, MapPin, Ticket, Sparkles } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 const values = [
   {
-    title: "Discover by City & Category",
-    body: "Filter events across all major Cyprus cities with category-first browsing built for speed.",
-    icon: ScanSearch,
+    icon: Compass,
+    title: "Tailored discovery",
+    body: "A feed that learns what you love — concerts, food, culture, nightlife.",
+    tone: "coral" as const,
   },
   {
-    title: "Instant Ticketing",
-    body: "Buy tickets with transparent fees and a checkout flow optimized for mobile conversion.",
+    icon: MapPin,
+    title: "Map-first browsing",
+    body: "See what's happening around you. Walkable, drivable, findable.",
+    tone: "violet" as const,
+  },
+  {
     icon: Ticket,
+    title: "Instant tickets",
+    body: "Transparent fees. Secure Stripe checkout. Tickets in your wallet.",
+    tone: "magenta" as const,
   },
   {
-    title: "Verified & Trusted",
-    body: "Event listings are reviewed to keep discovery clean, relevant, and spam-free.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Organizer Tools",
-    body: "Use analytics, attendee control, and payout tracking to run events end to end.",
-    icon: BarChart3,
+    icon: Sparkles,
+    title: "Locals and tourists",
+    body: "Whether you live here or visit for a weekend — same trusted app.",
+    tone: "coral" as const,
   },
 ];
 
 export default function ValueCards() {
-  const ref = useFadeIn<HTMLElement>();
+  const reduce = useReducedMotion();
   return (
-    <section ref={ref} className="home-v2-section home-v2-values fade-in-section" aria-labelledby="home-v2-values-title">
-      <div className="home-v2-container">
-        <header className="home-v2-section__header">
-          <p>Why EventaPulse</p>
-          <h2 id="home-v2-values-title">Everything you need to discover and run events</h2>
-        </header>
+    <section className="v3-section v3-values" aria-labelledby="v3-values-title">
+      <div className="v3-container">
+        <motion.header
+          className="v3-section__header"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
+          <p className="v3-eyebrow">Why EventaPulse</p>
+          <h2 id="v3-values-title">
+            Built for{" "}
+            <span className="v3-gradient-text">the way you actually go out.</span>
+          </h2>
+        </motion.header>
 
-        <div className="home-v2-values__grid">
-          {values.map((value, index) => (
-            <SpotlightCard key={value.title} className={`home-v2-values__card ${index === 0 ? "is-featured" : ""}`}>
-              <value.icon size={22} aria-hidden="true" />
-              <h3>{value.title}</h3>
-              <p>{value.body}</p>
-            </SpotlightCard>
+        <motion.div
+          className="v3-values__grid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px" }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.09 } } }}
+        >
+          {values.map((v) => (
+            <motion.article
+              key={v.title}
+              className={`v3-value v3-value--${v.tone}`}
+              variants={{
+                hidden: { opacity: 0, y: 28 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+              }}
+            >
+              <div className={`v3-value__icon v3-value__icon--${v.tone}`}>
+                <v.icon size={20} aria-hidden="true" />
+              </div>
+              <h3>{v.title}</h3>
+              <p>{v.body}</p>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

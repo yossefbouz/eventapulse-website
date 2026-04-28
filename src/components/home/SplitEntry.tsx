@@ -1,76 +1,85 @@
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import SpotlightCard from "../SpotlightCard";
-import PhoneMockup from "../PhoneMockup";
-import { screenshots } from "../../data/screenshots";
-import { useFadeIn } from "../../hooks/useFadeIn";
+import { motion, useReducedMotion } from "motion/react";
 
-const paths = [
-  {
-    title: "For Users",
-    description: "Find what to do tonight and secure your tickets in seconds.",
-    bullets: [
-      "Browse events by city and category",
-      "See nearby events with map view",
-      "Book instantly with transparent fees",
-    ],
-    cta: "Explore User Experience",
-    to: "/users",
-    image: screenshots.discoverFeed,
-    alt: "Event discovery feed for users",
-    glow: "blue" as const,
-  },
-  {
-    title: "For Organizers",
-    description: "Publish events, track growth, and run operations from one dashboard.",
-    bullets: [
-      "Launch events with verified listings",
-      "Manage sales and attendee data",
-      "Monitor payouts and performance",
-    ],
-    cta: "Explore Organizer Tools",
-    to: "/organizers",
-    image: screenshots.organizerHome,
-    alt: "Organizer dashboard home screen",
-    glow: "amber" as const,
-  },
-];
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function SplitEntry() {
-  const ref = useFadeIn<HTMLElement>();
+  const reduce = useReducedMotion();
+
   return (
-    <section ref={ref} className="home-v2-section home-v2-split-entry fade-in-section" aria-labelledby="home-v2-split-title">
-      <div className="home-v2-container">
-        <header className="home-v2-section__header">
-          <p>Choose Your Path</p>
-          <h2 id="home-v2-split-title">Built for both event-goers and event organizers</h2>
-        </header>
+    <section className="v3-section v3-split" aria-labelledby="v3-split-title">
+      <div className="v3-container">
+        <motion.header
+          className="v3-section__header"
+          initial={reduce ? false : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
+          <p className="v3-eyebrow">Two sides, one platform</p>
+          <h2 id="v3-split-title">
+            Whether you're going{" "}
+            <span className="v3-gradient-text">or hosting.</span>
+          </h2>
+        </motion.header>
 
-        <div className="home-v2-split-entry__grid">
-          {paths.map((path) => (
-            <Link key={path.title} to={path.to} className="home-v2-split-entry__link">
-              <SpotlightCard className="home-v2-split-entry__card">
-                <div className="home-v2-split-entry__copy">
-                  <h3>{path.title}</h3>
-                  <p>{path.description}</p>
-                  <ul>
-                    {path.bullets.map((bullet) => (
-                      <li key={bullet}>
-                        <CheckCircle2 size={15} aria-hidden="true" />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                  <span>
-                    {path.cta}
-                    <ArrowRight size={15} aria-hidden="true" />
-                  </span>
-                </div>
+        <div className="v3-split__grid">
+          <motion.div
+            className="v3-split__card v3-split__card--attendee"
+            initial={reduce ? false : { opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, ease: EASE }}
+          >
+            <div className="v3-split__media">
+              <img
+                src="/marketing/screens/IMG_7859.PNG"
+                alt="Event discovery feed with concerts and festivals"
+                loading="lazy"
+              />
+            </div>
+            <div className="v3-split__body">
+              <span className="v3-split__tag v3-split__tag--coral">For attendees</span>
+              <h3>Find your next night out.</h3>
+              <p>
+                Scroll real events happening this week. Tap to book. Share with
+                friends in one swipe.
+              </p>
+              <Link to="/users" className="v3-split__cta v3-split__cta--coral">
+                Browse as a user
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
+          </motion.div>
 
-                <PhoneMockup src={path.image} alt={path.alt} glow={path.glow} className="home-v2-split-entry__phone" />
-              </SpotlightCard>
-            </Link>
-          ))}
+          <motion.div
+            className="v3-split__card v3-split__card--organizer"
+            initial={reduce ? false : { opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+          >
+            <div className="v3-split__media">
+              <img
+                src="/marketing/screens/IMG_7869.PNG"
+                alt="Organizer dashboard overview"
+                loading="lazy"
+              />
+            </div>
+            <div className="v3-split__body">
+              <span className="v3-split__tag v3-split__tag--violet">For organizers</span>
+              <h3>Fill every seat, track every sale.</h3>
+              <p>
+                Publish events in minutes. Watch ticket sales in real time.
+                Scan at the door. Get paid fast.
+              </p>
+              <Link to="/organizers" className="v3-split__cta v3-split__cta--violet">
+                See organizer tools
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

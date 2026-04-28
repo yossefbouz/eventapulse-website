@@ -10,7 +10,7 @@ import { useSeo, seoData } from "../utils/seo";
 export default function OrganizerPage() {
   useSeo(seoData.organizers);
   return (
-    <div className="page-shell page-shell--organizer" id="top">
+    <div className="v3-page" id="top">
       <OrganizerHero />
       <PublishFlow />
       <OrganizerToolkit />

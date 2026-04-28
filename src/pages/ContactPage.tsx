@@ -8,7 +8,7 @@ import { useSeo, seoData } from "../utils/seo";
 export default function ContactPage() {
   useSeo(seoData.contact);
   return (
-    <div className="page-shell page-shell--contact" id="top">
+    <div className="v3-page" id="top">
       <ContactHero />
       <PartnerCards />
       <ContactForm />

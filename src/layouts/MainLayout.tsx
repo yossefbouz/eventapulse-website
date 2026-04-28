@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import CircularText from "../components/CircularText.jsx";
+import DockNav from "../components/DockNav";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -14,9 +15,29 @@ const navLinks = [
 export default function MainLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const isHomeRoute = location.pathname === "/";
+
+  useEffect(() => {
+    if (!("scrollRestoration" in window.history)) {
+      return;
+    }
+
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+
+    return () => {
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
+  }, []);
 
   useEffect(() => {
     setMobileOpen(false);
+  }, [location.pathname]);
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }, [location.pathname]);
 
   return (
@@ -24,7 +45,11 @@ export default function MainLayout() {
       <a href="#main-content" className="skip-to-content">
         Skip to content
       </a>
-      <header className="main-header">
+      <header
+        className={`main-header ${isHomeRoute ? "main-header--home" : ""} ${
+          mobileOpen ? "is-menu-open" : ""
+        }`.trim()}
+      >
         <div className="pill-nav-shell">
           <Link to="/" className="pill-brand">
             <img src="/eventpulse-logo-full.jpg" alt="EventaPulse" />
@@ -41,22 +66,19 @@ export default function MainLayout() {
             <span className={`hamburger ${mobileOpen ? "is-open" : ""}`} />
           </button>
 
-          <nav
-            className={`pill-nav-links ${mobileOpen ? "is-open" : ""}`}
-            aria-label="Main navigation"
-          >
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className={({ isActive }) => (isActive ? "is-active" : "")}
-                onClick={() => setMobileOpen(false)}
-                end={link.to === "/"}
-              >
-                {link.label}
-              </NavLink>
-            ))}
-          </nav>
+          <DockNav
+            className={mobileOpen ? "is-open" : ""}
+            onNavigate={() => setMobileOpen(false)}
+          />
+          {mobileOpen && (
+            <Link
+              to="/contact"
+              className="pill-cta pill-nav-mobile-cta"
+              onClick={() => setMobileOpen(false)}
+            >
+              Partner With Us
+            </Link>
+          )}
 
           <Link
             to="/contact"

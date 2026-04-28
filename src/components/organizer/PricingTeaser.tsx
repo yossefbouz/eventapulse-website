@@ -1,75 +1,32 @@
 import { Link } from "react-router-dom";
-import { CheckCircle2 } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowRight } from "lucide-react";
 
-const tiers = [
-  {
-    name: "Standard",
-    price: "From EUR 20",
-    period: "/ day",
-    features: [
-      "Listed in discovery feed",
-      "Category and city targeting",
-      "Basic analytics",
-      "Stripe-powered ticketing",
-    ],
-    cta: "Get Started",
-    highlight: false,
-  },
-  {
-    name: "Featured",
-    price: "From EUR 50",
-    period: "/ day",
-    features: [
-      "Priority placement in feeds",
-      "Featured badge on listing",
-      "Advanced analytics & insights",
-      "Dedicated support",
-    ],
-    cta: "Go Featured",
-    highlight: true,
-  },
-];
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function PricingTeaser() {
+  const reduce = useReducedMotion();
   return (
-    <section className="page-section org-pricing" id="org-pricing" aria-labelledby="org-pricing-title">
-      <div className="page-container">
-        <header className="page-section__header">
-          <p>Pricing</p>
-          <h2 id="org-pricing-title">Simple, transparent pricing</h2>
-        </header>
-        <p className="org-pricing__subtitle">
-          Duration-based listing fees from 1 to 90 days. Plus 5% ticket commission (net of VAT).
-        </p>
-
-        <div className="org-pricing__grid">
-          {tiers.map((tier) => (
-            <article
-              key={tier.name}
-              className={`org-pricing__card ${tier.highlight ? "org-pricing__card--featured" : ""}`}
-            >
-              <h3>{tier.name}</h3>
-              <p className="org-pricing__price">
-                {tier.price}
-                <span>{tier.period}</span>
-              </p>
-              <ul>
-                {tier.features.map((feature) => (
-                  <li key={feature}>
-                    <CheckCircle2 size={15} aria-hidden="true" />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                to="/contact"
-                className={`page-btn ${tier.highlight ? "page-btn--primary" : "page-btn--ghost"}`}
-              >
-                {tier.cta}
-              </Link>
-            </article>
-          ))}
-        </div>
+    <section id="org-pricing" className="v3-section v3-org-pricing" aria-labelledby="v3-org-pricing-title">
+      <div className="v3-container">
+        <motion.div
+          className="v3-org-pricing__card"
+          initial={reduce ? false : { opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: EASE }}
+        >
+          <p className="v3-eyebrow">Pricing</p>
+          <h2 id="v3-org-pricing-title" className="v3-org-pricing__headline">
+            <span className="v3-gradient-text">€1 + 5%</span>
+            <em>per ticket.</em>
+          </h2>
+          <p className="v3-org-pricing__note">Flat €1.00 platform fee and 5% commission, net of Cyprus VAT. No setup fees, no monthly subscription, no surprises.</p>
+          <Link to="/trust" className="v3-btn v3-btn--primary">
+            See full pricing
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </motion.div>
       </div>
     </section>
   );

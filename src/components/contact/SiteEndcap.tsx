@@ -1,32 +1,38 @@
-import { Link } from "react-router-dom";
+import { Instagram, Mail } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 
-const partners = ["Retrogroove", "Harbor", "ODIN", "Madhouse", "Somewhere"];
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function SiteEndcap() {
+  const reduce = useReducedMotion();
   return (
-    <section className="page-section site-endcap" aria-labelledby="endcap-title">
-      <div className="page-container">
-        <div className="site-endcap__partners">
-          <p className="site-endcap__partners-label">Our Current Partners</p>
-          <div className="site-endcap__partners-row">
-            {partners.map((p) => (
-              <span key={p} className="site-endcap__partner-name">{p}</span>
-            ))}
-          </div>
+    <section className="v3-final v3-contact-endcap" aria-labelledby="v3-contact-endcap-title">
+      <div className="v3-final__mesh" aria-hidden="true" />
+      <div className="v3-final__noise" aria-hidden="true" />
+      <motion.div
+        className="v3-container v3-final__inner"
+        initial={reduce ? false : { opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.9, ease: EASE }}
+      >
+        <p className="v3-eyebrow v3-eyebrow--light">See you soon</p>
+        <h2 id="v3-contact-endcap-title" className="v3-final__title">
+          See you in{" "}
+          <span className="v3-gradient-text v3-gradient-text--warm">Cyprus.</span>
+        </h2>
+
+        <div className="v3-contact-endcap__socials">
+          <a href="mailto:contact@eventpulse.app" aria-label="Email EventaPulse" className="v3-contact-endcap__social">
+            <Mail size={18} aria-hidden="true" />
+          </a>
+          <a href="https://instagram.com/eventapulse" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="v3-contact-endcap__social">
+            <Instagram size={18} aria-hidden="true" />
+          </a>
         </div>
 
-        <div className="site-endcap__inner">
-          <h2 id="endcap-title">Join the future of events in Cyprus</h2>
-          <div className="site-endcap__actions">
-            <Link to="/users" className="page-btn page-btn--primary">
-              Download the App
-            </Link>
-            <Link to="/organizers" className="page-btn page-btn--ghost">
-              Submit Your Event
-            </Link>
-          </div>
-        </div>
-      </div>
+        <p className="v3-contact-endcap__copy">&copy; 2026 EventaPulse. Built with care in Nicosia.</p>
+      </motion.div>
     </section>
   );
 }

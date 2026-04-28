@@ -1,63 +1,155 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Iridescence from "../Iridescence";
-import TextPressure from "../TextPressure.jsx";
+import { motion, useReducedMotion, AnimatePresence } from "motion/react";
+import { ArrowRight, MapPin, Sparkles } from "lucide-react";
+
+const rotatingScreens = [
+  "/marketing/screens/IMG_7852.PNG",
+  "/marketing/screens/IMG_7855.PNG",
+  "/marketing/screens/IMG_7859.PNG",
+  "/marketing/screens/IMG_7865.PNG",
+];
+
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function HeroSection() {
+  const reduce = useReducedMotion();
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (reduce) return;
+    const id = window.setInterval(() => {
+      setIndex((i) => (i + 1) % rotatingScreens.length);
+    }, 2800);
+    return () => window.clearInterval(id);
+  }, [reduce]);
+
   return (
-    <section className="home-v2-hero" aria-labelledby="home-v2-hero-title">
-      <Iridescence
-        className="home-v2-hero__iridescence"
-        baseColor={[1, 0.72, 0.86]}
-        speed={1.05}
-        amplitude={0.09}
-        mouseReact
-      />
-      <div className="home-v2-hero__overlay" />
-      <div className="home-v2-hero__orb home-v2-hero__orb--pink" />
-      <div className="home-v2-hero__orb home-v2-hero__orb--blue" />
-
-      <div className="home-v2-container home-v2-hero__inner home-v2-hero__inner--centered">
-        <p className="home-v2-kicker home-v2-hero__kicker">Event Discovery Platform • Cyprus</p>
-
-        <div className="home-v2-hero__pressure">
-          <TextPressure
-            text="EVENTAPULSE"
-            minFontSize={32}
-            textColor="#fff6fd"
-            stroke={false}
-            width
-            weight
-            italic={false}
-            alpha={false}
-          />
-        </div>
-
-        <h1 id="home-v2-hero-title" className="home-v2-hero__tagline">
-          Your guide to unforgettable experiences
-        </h1>
-
-        <p className="home-v2-hero__sub">
-          Discover, book, and save on the best events across Cyprus — one trusted app for everyone.
-        </p>
-
-        <div className="home-v2-hero__actions home-v2-hero__actions--centered">
-          <Link to="/users" className="home-v2-btn home-v2-btn--primary">
-            Explore Events
-          </Link>
-          <Link to="/organizers" className="home-v2-btn home-v2-btn--ghost">
-            List Your Event
-          </Link>
-        </div>
+    <section className="v3-hero" aria-labelledby="v3-hero-title">
+      <div className="v3-hero__bg" aria-hidden="true">
+        <div className="v3-hero__grid" />
+        <motion.div
+          className="v3-blob v3-blob--violet"
+          animate={reduce ? undefined : { x: [0, 40, -20, 0], y: [0, -30, 20, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="v3-blob v3-blob--coral"
+          animate={reduce ? undefined : { x: [0, -50, 30, 0], y: [0, 40, -20, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="v3-blob v3-blob--magenta"
+          animate={reduce ? undefined : { x: [0, 30, -40, 0], y: [0, -20, 30, 0] }}
+          transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
+        />
       </div>
 
-      <a
-        className="home-v2-scroll-indicator"
-        href="#home-proof"
-        aria-label="Scroll to proof section"
-      >
-        <span />
-        Scroll
-      </a>
+      <div className="v3-container v3-hero__inner">
+        <motion.div
+          className="v3-hero__copy"
+          initial={reduce ? false : { opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE }}
+        >
+          <motion.div
+            className="v3-chip v3-chip--animated"
+            initial={reduce ? false : { opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+          >
+            <span className="v3-chip__pulse" aria-hidden="true" />
+            <Sparkles size={13} aria-hidden="true" />
+            Now in beta · Cyprus 2026
+          </motion.div>
+
+          <h1 id="v3-hero-title" className="v3-hero__title">
+            Every event in Cyprus.{" "}
+            <span className="v3-gradient-text v3-shine">One app.</span>
+          </h1>
+
+          <p className="v3-hero__sub">
+            Discover, book, and save on concerts, festivals, workshops, and
+            hidden gems across Nicosia, Larnaca, Limassol, Paphos, and Ayia Napa.
+          </p>
+
+          <div className="v3-hero__actions">
+            <Link to="/users" className="v3-btn v3-btn--primary">
+              Explore Events
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+            <Link to="/organizers" className="v3-btn v3-btn--ghost">
+              For Organizers
+            </Link>
+          </div>
+
+          <div className="v3-hero__meta">
+            <MapPin size={14} aria-hidden="true" />
+            <span>Nicosia · Larnaca · Limassol · Paphos · Ayia Napa</span>
+          </div>
+        </motion.div>
+
+        <motion.div
+          className="v3-hero__visual"
+          initial={reduce ? false : { opacity: 0, scale: 0.92, y: 30 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.15, ease: EASE }}
+        >
+          <div className="v3-phone-glow v3-phone-glow--coral" aria-hidden="true" />
+          <div className="v3-phone-glow v3-phone-glow--violet" aria-hidden="true" />
+
+          <motion.div
+            className="v3-phone"
+            animate={reduce ? undefined : { y: [0, -12, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <div className="v3-phone__frame">
+              <div className="v3-phone__notch" />
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={rotatingScreens[index]}
+                  src={rotatingScreens[index]}
+                  alt="EventaPulse app screen showing Cyprus events"
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.7, ease: EASE }}
+                />
+              </AnimatePresence>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="v3-float-card v3-float-card--top"
+            initial={reduce ? false : { opacity: 0, x: 30, y: -10 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.6, ease: EASE }}
+          >
+            <div className="v3-float-card__icon v3-float-card__icon--coral">
+              <Sparkles size={14} aria-hidden="true" />
+            </div>
+            <div>
+              <strong>Halloumi Festival</strong>
+              <span>Sold out · Larnaca</span>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="v3-float-card v3-float-card--bottom"
+            initial={reduce ? false : { opacity: 0, x: -30, y: 10 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.8, ease: EASE }}
+          >
+            <div className="v3-float-card__icon v3-float-card__icon--violet">
+              <MapPin size={14} aria-hidden="true" />
+            </div>
+            <div>
+              <strong>12 events nearby</strong>
+              <span>This weekend</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
     </section>
   );
 }

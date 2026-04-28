@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Production build
+dist/
+*.tsbuildinfo
+
+# Local logs
+*.log
+dev.err.log
+dev.log
+preview.err.log
+preview.log
+
+# Local-only output
+output/
+
+# Stray screenshots / one-off artifacts
+homepage-redesign-full.png
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude harness — entirely local
+.claude/
