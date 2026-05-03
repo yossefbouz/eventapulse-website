@@ -1,42 +1,15 @@
-import { useState, type FormEvent } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { Apple, Smartphone, Send, CheckCircle2, Download, Sparkles } from "lucide-react";
+import { Apple, Smartphone, Download, Sparkles } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-// When the signed APK is hosted, set this to the real URL (e.g. CDN / GitHub Releases asset)
-// and flip ANDROID_BUILD_AVAILABLE to true.
-const ANDROID_APK_URL = "/downloads/eventapulse-beta.apk";
-const ANDROID_BUILD_AVAILABLE = false;
-const TESTFLIGHT_REQUEST_EMAIL = "info@eventapulse.com";
+const ANDROID_APK_URL = "https://expo.dev/artifacts/eas/6ga9h58RAGavF7KmwmZH2M.apk";
+const ANDROID_APK_FILENAME = "EventaPulse-1.0.0.apk";
+const TESTFLIGHT_URL = "https://testflight.apple.com/join/h7KCEpZj";
+const APP_VERSION = "1.0.0";
 
 export default function BetaTesters() {
   const reduce = useReducedMotion();
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleIosSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const trimmed = email.trim();
-    if (!trimmed) {
-      setError("Email is required");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
-      setError("Enter a valid email");
-      return;
-    }
-    setError(null);
-
-    const subject = encodeURIComponent("TestFlight invite — EventaPulse beta");
-    const body = encodeURIComponent(
-      `Hi team,\n\nI'd like to be one of the first testers on iOS.\n\nName: ${name || "(not provided)"}\nEmail: ${trimmed}\n\nPlease send me a TestFlight invite when a slot opens.\n\nThanks!`,
-    );
-    window.location.href = `mailto:${TESTFLIGHT_REQUEST_EMAIL}?subject=${subject}&body=${body}`;
-    setSubmitted(true);
-  };
 
   return (
     <section id="beta" className="v3-section v3-beta" aria-labelledby="v3-beta-title">
@@ -55,14 +28,14 @@ export default function BetaTesters() {
         >
           <p className="v3-eyebrow">
             <Sparkles size={12} aria-hidden="true" style={{ marginRight: 6 }} />
-            Beta access · Limited spots
+            🟢 Beta is live · iOS + Android
           </p>
           <h2 id="v3-beta-title">
-            Be the first to <span className="v3-gradient-text v3-shine">test the app.</span>
+            EventaPulse is <span className="v3-gradient-text v3-shine">now in beta.</span>
           </h2>
           <p className="v3-section__sub">
-            We're rolling out the EventaPulse beta to a small group of testers in Cyprus.
-            Help us shape the product before launch — your feedback goes straight to the founders.
+            iOS via TestFlight, Android via direct APK install.
+            Tap your platform below — your feedback goes straight to the founders.
           </p>
         </motion.header>
 
@@ -100,67 +73,25 @@ export default function BetaTesters() {
               </li>
               <li>
                 <span className="v3-beta__step-num">2</span>
-                <span>Drop your email below — we'll send you a personal invite link.</span>
-              </li>
-              <li>
-                <span className="v3-beta__step-num">3</span>
-                <span>Open the link on your iPhone and tap <em>Accept</em> in TestFlight.</span>
+                <span>
+                  Tap the button below — TestFlight opens automatically and shows EventaPulse
+                  ready to install.
+                </span>
               </li>
             </ol>
 
-            {submitted ? (
-              <div className="v3-beta__success" role="status">
-                <CheckCircle2 size={20} aria-hidden="true" />
-                <div>
-                  <strong>Almost there!</strong>
-                  <p>
-                    Your email client just opened with the request. Send it and we'll reply with
-                    your TestFlight invite within 24 hours.
-                  </p>
-                </div>
-              </div>
-            ) : (
-              <form className="v3-beta__form" onSubmit={handleIosSubmit} noValidate>
-                <label className="v3-beta__field">
-                  <span className="v3-beta__label">Your name (optional)</span>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Maria"
-                    autoComplete="name"
-                  />
-                </label>
-                <label className="v3-beta__field">
-                  <span className="v3-beta__label">Email for TestFlight invite</span>
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      if (error) setError(null);
-                    }}
-                    placeholder="you@example.com"
-                    autoComplete="email"
-                    aria-invalid={Boolean(error)}
-                    aria-describedby={error ? "beta-email-error" : undefined}
-                    required
-                  />
-                  {error && (
-                    <span id="beta-email-error" className="v3-beta__error">
-                      {error}
-                    </span>
-                  )}
-                </label>
-                <button type="submit" className="v3-btn v3-btn--primary v3-beta__submit">
-                  <Send size={16} aria-hidden="true" />
-                  Request TestFlight invite
-                </button>
-                <p className="v3-beta__fineprint">
-                  We'll only use your email to send the invite. No spam, ever.
-                </p>
-              </form>
-            )}
+            <a
+              href={TESTFLIGHT_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="v3-btn v3-btn--primary v3-beta__submit"
+            >
+              <Apple size={16} aria-hidden="true" />
+              Join TestFlight
+            </a>
+            <p className="v3-beta__fineprint">
+              Latest build: {APP_VERSION} · Open this page on your iPhone for the smoothest install.
+            </p>
           </motion.article>
 
           {/* Android card */}
@@ -199,46 +130,18 @@ export default function BetaTesters() {
               </li>
             </ol>
 
-            {ANDROID_BUILD_AVAILABLE ? (
-              <>
-                <a
-                  href={ANDROID_APK_URL}
-                  className="v3-btn v3-btn--primary v3-beta__submit"
-                  download
-                >
-                  <Download size={16} aria-hidden="true" />
-                  Download APK (Beta)
-                </a>
-                <p className="v3-beta__fineprint">
-                  Latest build · Updated weekly. Issues? Email{" "}
-                  <a href={`mailto:${TESTFLIGHT_REQUEST_EMAIL}`}>
-                    {TESTFLIGHT_REQUEST_EMAIL}
-                  </a>
-                  .
-                </p>
-              </>
-            ) : (
-              <>
-                <a
-                  href={`mailto:${TESTFLIGHT_REQUEST_EMAIL}?subject=${encodeURIComponent(
-                    "Android beta — notify me",
-                  )}&body=${encodeURIComponent(
-                    "Hi team,\n\nPlease notify me when the Android build is ready to install.\n\nThanks!",
-                  )}`}
-                  className="v3-btn v3-btn--primary v3-beta__submit"
-                >
-                  <Send size={16} aria-hidden="true" />
-                  Notify me when ready
-                </a>
-                <p className="v3-beta__fineprint">
-                  Android build is in QA. Email{" "}
-                  <a href={`mailto:${TESTFLIGHT_REQUEST_EMAIL}`}>
-                    {TESTFLIGHT_REQUEST_EMAIL}
-                  </a>{" "}
-                  and we'll send the APK as soon as it's signed.
-                </p>
-              </>
-            )}
+            <a
+              href={ANDROID_APK_URL}
+              className="v3-btn v3-btn--primary v3-beta__submit"
+              download={ANDROID_APK_FILENAME}
+            >
+              <Download size={16} aria-hidden="true" />
+              Download APK · {APP_VERSION}
+            </a>
+            <p className="v3-beta__fineprint">
+              Latest build: {APP_VERSION} · Make sure "Install from unknown sources" is enabled
+              in your browser when prompted.
+            </p>
           </motion.article>
         </motion.div>
       </div>
