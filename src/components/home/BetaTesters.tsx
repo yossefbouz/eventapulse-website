@@ -3,7 +3,7 @@ import { Apple, Smartphone, Download, Sparkles } from "lucide-react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-const ANDROID_APK_URL = "https://expo.dev/artifacts/eas/6ga9h58RAGavF7KmwmZH2M.apk";
+const ANDROID_APK_URL = "https://expo.dev/artifacts/eas/be9bX733gRoWZi4KqZhXEG.apk";
 const ANDROID_APK_FILENAME = "EventaPulse-1.0.0.apk";
 const TESTFLIGHT_URL = "https://testflight.apple.com/join/h7KCEpZj";
 const APP_VERSION = "1.0.0";
