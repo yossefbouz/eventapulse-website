@@ -6,12 +6,14 @@ import OrganizerPage from "./pages/OrganizerPage";
 import HowItWorksPage from "./pages/HowItWorksPage";
 import TrustPage from "./pages/TrustPage";
 import ContactPage from "./pages/ContactPage";
+import BetaPage from "./pages/BetaPage";
 
 export const router = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
       { index: true, element: <HomePage /> },
+      { path: "beta", element: <BetaPage /> },
       { path: "users", element: <UserPage /> },
       { path: "organizers", element: <OrganizerPage /> },
       { path: "how-it-works", element: <HowItWorksPage /> },

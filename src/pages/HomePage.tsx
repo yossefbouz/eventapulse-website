@@ -45,12 +45,12 @@ export default function HomePage() {
   return (
     <div className="v3-page" id="top">
       <HeroSection />
+      <BetaTesters />
       <ProofBar />
       <ProductPreview />
       <ValueCards />
       <SplitEntry />
       <TeamSection />
-      <BetaTesters />
       <FinalCTA />
     </div>
   );

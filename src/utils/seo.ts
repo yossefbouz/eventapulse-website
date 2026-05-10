@@ -50,6 +50,12 @@ export const seoData = {
       "The premier event discovery platform for Cyprus. Find events, buy tickets, and explore nightlife across Nicosia, Paphos, Larnaca, Ayia Napa, and Limassol.",
     path: "/",
   },
+  beta: {
+    title: "Beta · Install the App",
+    description:
+      "EventaPulse is now in beta. Install on iOS via TestFlight or Android via direct APK. Feedback goes straight to the founders.",
+    path: "/beta",
+  },
   users: {
     title: "For Event-Goers",
     description:

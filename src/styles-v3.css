@@ -1696,6 +1696,64 @@
   box-shadow: 0 0 8px rgba(236, 72, 153, 0.7);
 }
 
+/* Highlighted dock item (e.g. Beta) — subtle live-app glow */
+.dock-nav__item--highlight {
+  color: #fff;
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(16, 185, 129, 0.10));
+  box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.32);
+}
+
+.dock-nav__item--highlight .dock-nav__icon {
+  color: #4ade80;
+}
+
+@media (hover: hover) {
+  .dock-nav__item--highlight:hover {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.28), rgba(16, 185, 129, 0.16));
+    box-shadow: inset 0 0 0 1px rgba(34, 197, 94, 0.5);
+  }
+}
+
+.dock-nav__live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: dockLivePulse 1.8s ease-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes dockLivePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-nav__live-dot {
+    animation: none;
+  }
+}
+
+/* Icon-only mode (1040px and below): show the dot inside the icon slot */
+@media (max-width: 1040px) {
+  .dock-nav__item--highlight .dock-nav__live-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 7px;
+    height: 7px;
+    border: 1.5px solid rgba(20, 18, 38, 0.95);
+  }
+}
+
 @media (max-width: 1040px) {
   .dock-nav__label { display: none; }
   .dock-nav__item { padding: 9px; }

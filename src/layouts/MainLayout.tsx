@@ -5,6 +5,7 @@ import DockNav from "../components/DockNav";
 
 const navLinks = [
   { label: "Home", to: "/" },
+  { label: "Beta", to: "/beta" },
   { label: "For Users", to: "/users" },
   { label: "For Organizers", to: "/organizers" },
   { label: "How It Works", to: "/how-it-works" },
