@@ -108,7 +108,7 @@ export default function PrivacyPage() {
               </ul>
               <p>
                 Contact us at{" "}
-                <a href="mailto:privacy@eventapulse.com">privacy@eventapulse.com</a> to exercise
+                <a href="mailto:info@eventapulse.com">info@eventapulse.com</a> to exercise
                 any of these rights. We respond within 30 days.
               </p>
             </section>
@@ -139,7 +139,7 @@ export default function PrivacyPage() {
               <p>
                 EventPulse is not intended for users under 16. We do not knowingly collect data
                 from children. If you believe a child has created an account, contact us at{" "}
-                <a href="mailto:privacy@eventapulse.com">privacy@eventapulse.com</a>.
+                <a href="mailto:info@eventapulse.com">info@eventapulse.com</a>.
               </p>
             </section>
 
@@ -156,10 +156,10 @@ export default function PrivacyPage() {
               <p>
                 EventPulse Ltd · Nicosia, Cyprus
                 <br />
-                Email: <a href="mailto:privacy@eventapulse.com">privacy@eventapulse.com</a>
+                Email: <a href="mailto:info@eventapulse.com">info@eventapulse.com</a>
                 <br />
-                Data Protection Officer:{" "}
-                <a href="mailto:dpo@eventapulse.com">dpo@eventapulse.com</a>
+                For GDPR / Data Protection Officer requests, use the same address above and
+                put <strong>"DPO request"</strong> in the subject line.
               </p>
             </section>
           </article>
