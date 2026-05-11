@@ -86,4 +86,10 @@ export const seoData = {
       "Join EventaPulse as a venue, organizer, or brand partner. Grow events in Cyprus together.",
     path: "/contact",
   },
+  privacy: {
+    title: "Privacy Policy",
+    description:
+      "How EventaPulse collects, uses, and protects your data. GDPR-compliant policy for our Cyprus event discovery and ticketing platform.",
+    path: "/privacy",
+  },
 } as const;

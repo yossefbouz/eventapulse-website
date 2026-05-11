@@ -2838,3 +2838,50 @@ body:has(.v3-page) .floating-brand-wheel {
   }
   .v3-trust-fees__cell-value { font-size: 18px; }
 }
+
+/* === Privacy / legal prose === */
+.privacy-prose {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 16px;
+  line-height: 1.7;
+}
+.privacy-prose section {
+  margin-top: 32px;
+}
+.privacy-prose section:first-child {
+  margin-top: 0;
+}
+.privacy-prose h2 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+.privacy-prose p {
+  margin: 0 0 12px;
+}
+.privacy-prose ul {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+.privacy-prose li {
+  margin-bottom: 8px;
+}
+.privacy-prose strong {
+  color: #fff;
+  font-weight: 600;
+}
+.privacy-prose a {
+  color: #ff8a4c;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+.privacy-prose a:hover {
+  color: #ffb380;
+}
+@media (max-width: 640px) {
+  .privacy-prose { font-size: 15px; }
+  .privacy-prose h2 { font-size: 19px; }
+}

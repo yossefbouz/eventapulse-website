@@ -138,7 +138,7 @@ export default function MainLayout() {
             <h4>Legal</h4>
             <ul>
               <li><Link to="/trust">Trust & Safety</Link></li>
-              <li><a href="#">Privacy Policy</a></li>
+              <li><Link to="/privacy">Privacy Policy</Link></li>
               <li><a href="#">Terms & Conditions</a></li>
               <li><a href="#">Cookies</a></li>
             </ul>

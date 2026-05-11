@@ -7,6 +7,7 @@ import HowItWorksPage from "./pages/HowItWorksPage";
 import TrustPage from "./pages/TrustPage";
 import ContactPage from "./pages/ContactPage";
 import BetaPage from "./pages/BetaPage";
+import PrivacyPage from "./pages/PrivacyPage";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { path: "how-it-works", element: <HowItWorksPage /> },
       { path: "trust", element: <TrustPage /> },
       { path: "contact", element: <ContactPage /> },
+      { path: "privacy", element: <PrivacyPage /> },
       // Redirect old routes
       { path: "user", element: <Navigate to="/users" replace /> },
       { path: "organizer", element: <Navigate to="/organizers" replace /> },
