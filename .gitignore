@@ -31,3 +31,6 @@ Thumbs.db
 
 # Claude harness — entirely local
 .claude/
+
+# Playwright MCP temp artifacts (screenshots, snapshots, logs)
+.playwright-mcp/

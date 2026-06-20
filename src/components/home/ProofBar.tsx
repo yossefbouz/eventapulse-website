@@ -4,26 +4,24 @@ import NumberTicker from "./NumberTicker";
 
 const cities = [
   "Nicosia",
-  "Larnaca",
   "Limassol",
+  "Larnaca",
   "Paphos",
   "Ayia Napa",
-  "Protaras",
-  "Kyrenia",
-  "Platres",
+  "Famagusta",
 ];
 
 const stats = [
-  { value: 1200, suffix: "+", label: "events indexed" },
-  { value: 5, suffix: "", label: "cities covered" },
-  { value: 100, suffix: "%", label: "free for attendees" },
+  { value: 6, suffix: "", label: "cities covered" },
+  { value: 100, suffix: "%", label: "free to use" },
+  { value: 0, suffix: "", label: "booking fees" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ProofBar() {
   const reduce = useReducedMotion();
-  const loop = [...cities, ...cities];
+  const loop = [...cities, ...cities, ...cities];
 
   return (
     <section id="home-proof" className="v3-proof" aria-labelledby="v3-proof-title">

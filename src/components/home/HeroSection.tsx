@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion, AnimatePresence } from "motion/react";
-import { Apple, MapPin, Smartphone, Sparkles } from "lucide-react";
+import { Apple, MapPin, Sparkles } from "lucide-react";
+import { AppStoreBadge, GooglePlayBadge } from "../StoreBadges";
 
 const rotatingScreens = [
   "/marketing/screens/IMG_7852.PNG",
@@ -74,26 +75,9 @@ export default function HeroSection() {
             all in one place.
           </p>
 
-          <div className="v3-hero__actions">
-            <a
-              href={APP_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="v3-btn v3-btn--primary"
-              aria-label="Download EventaPulse on the App Store"
-            >
-              <Apple size={16} aria-hidden="true" />
-              Download on the App Store
-            </a>
-            <span
-              className="v3-btn v3-btn--ghost is-disabled"
-              role="button"
-              aria-disabled="true"
-              tabIndex={-1}
-            >
-              <Smartphone size={16} aria-hidden="true" />
-              Google Play — coming soon
-            </span>
+          <div className="v3-hero__actions v3-hero__actions--badges">
+            <AppStoreBadge href={APP_STORE_URL} />
+            <GooglePlayBadge />
           </div>
 
           <div className="v3-hero__meta">

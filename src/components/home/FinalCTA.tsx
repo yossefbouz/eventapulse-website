@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from "motion/react";
-import { Apple, Smartphone } from "lucide-react";
-import { useMagnetic } from "./useMagnetic";
+import { AppStoreBadge, GooglePlayBadge } from "../StoreBadges";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -8,7 +7,6 @@ const APP_STORE_URL = "https://apps.apple.com/cy/app/eventapulse/id6762138395";
 
 export default function FinalCTA() {
   const reduce = useReducedMotion();
-  const primaryRef = useMagnetic<HTMLAnchorElement>(0.3);
   return (
     <section id="join" className="v3-final" aria-labelledby="v3-final-title">
       <div className="v3-final__mesh" aria-hidden="true" />
@@ -30,27 +28,9 @@ export default function FinalCTA() {
           Download EventaPulse free on the App Store. Android arriving this week.
         </p>
 
-        <div className="v3-final__actions">
-          <a
-            ref={primaryRef}
-            href={APP_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="v3-btn v3-btn--primary v3-btn--large v3-btn--magnetic"
-            aria-label="Download EventaPulse on the App Store"
-          >
-            <Apple size={18} aria-hidden="true" />
-            Download on the App Store
-          </a>
-          <span
-            className="v3-btn v3-btn--ghost v3-btn--large is-disabled"
-            role="button"
-            aria-disabled="true"
-            tabIndex={-1}
-          >
-            <Smartphone size={18} aria-hidden="true" />
-            Google Play — coming soon
-          </span>
+        <div className="v3-final__actions v3-hero__actions--badges">
+          <AppStoreBadge href={APP_STORE_URL} />
+          <GooglePlayBadge />
         </div>
       </motion.div>
     </section>
