@@ -7,8 +7,8 @@ const methods = [
   {
     icon: Mail,
     label: "Email",
-    value: "contact@eventpulse.app",
-    href: "mailto:contact@eventpulse.app",
+    value: "info@eventapulse.com",
+    href: "mailto:info@eventapulse.com",
     tone: "coral" as const,
   },
   {

@@ -5,7 +5,6 @@ import DockNav from "../components/DockNav";
 
 const navLinks = [
   { label: "Home", to: "/" },
-  { label: "Beta", to: "/beta" },
   { label: "For Users", to: "/users" },
   { label: "For Organizers", to: "/organizers" },
   { label: "How It Works", to: "/how-it-works" },
@@ -119,18 +118,25 @@ export default function MainLayout() {
           <div className="site-footer__links">
             <h4>Company</h4>
             <ul>
-              <li><a href="mailto:contact@eventpulse.app">contact@eventpulse.app</a></li>
-              <li><a href="https://www.eventpulse.app" target="_blank" rel="noopener noreferrer">www.eventpulse.app</a></li>
-              <li><span>+357 22 000 000</span></li>
+              <li><a href="mailto:info@eventapulse.com">info@eventapulse.com</a></li>
+              <li><a href="mailto:events@eventapulse.com">events@eventapulse.com</a></li>
+              <li><a href="https://eventapulse.com">eventapulse.com</a></li>
             </ul>
           </div>
 
           <div className="site-footer__links">
             <h4>Social</h4>
             <ul>
-              <li><a href="#" aria-label="EventaPulse Instagram">Instagram</a></li>
-              <li><a href="#" aria-label="EventaPulse X">X</a></li>
-              <li><a href="#" aria-label="EventaPulse LinkedIn">LinkedIn</a></li>
+              <li>
+                <a
+                  href="https://instagram.com/eventapulse"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="EventaPulse Instagram"
+                >
+                  Instagram
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -146,7 +152,7 @@ export default function MainLayout() {
 
           <div className="site-footer__bottom">
             <span className="site-footer__badge">Made in Cyprus</span>
-            <p>&copy; 2026 EventaPulse. All rights reserved.</p>
+            <p>&copy; 2026 Eventa Pulse LTD · Cyprus · All rights reserved.</p>
           </div>
         </div>
       </footer>

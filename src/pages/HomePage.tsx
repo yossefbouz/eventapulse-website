@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import BetaTesters from "../components/home/BetaTesters";
+import DifferentiatorStrip from "../components/home/DifferentiatorStrip";
 import FinalCTA from "../components/home/FinalCTA";
 import HeroSection from "../components/home/HeroSection";
+import OrganizerCallout from "../components/home/OrganizerCallout";
 import ProductPreview from "../components/home/ProductPreview";
 import ProofBar from "../components/home/ProofBar";
 import SplitEntry from "../components/home/SplitEntry";
@@ -45,10 +46,11 @@ export default function HomePage() {
   return (
     <div className="v3-page" id="top">
       <HeroSection />
-      <BetaTesters />
+      <DifferentiatorStrip />
       <ProofBar />
       <ProductPreview />
       <ValueCards />
+      <OrganizerCallout />
       <SplitEntry />
       <TeamSection />
       <FinalCTA />

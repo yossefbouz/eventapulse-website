@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { motion, useReducedMotion, AnimatePresence } from "motion/react";
-import { ArrowRight, MapPin, Sparkles } from "lucide-react";
+import { Apple, MapPin, Smartphone, Sparkles } from "lucide-react";
 
 const rotatingScreens = [
   "/marketing/screens/IMG_7852.PNG",
@@ -9,6 +8,8 @@ const rotatingScreens = [
   "/marketing/screens/IMG_7859.PNG",
   "/marketing/screens/IMG_7865.PNG",
 ];
+
+const APP_STORE_URL = "https://apps.apple.com/cy/app/eventapulse/id6762138395";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -59,8 +60,8 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
           >
             <span className="v3-chip__pulse" aria-hidden="true" />
-            <Sparkles size={13} aria-hidden="true" />
-            Now in beta · Cyprus 2026
+            <Apple size={13} aria-hidden="true" />
+            Live on the App Store · Cyprus 2026
           </motion.div>
 
           <h1 id="v3-hero-title" className="v3-hero__title">
@@ -68,14 +69,31 @@ export default function HeroSection() {
             <span className="v3-gradient-text v3-shine">One app.</span>
           </h1>
 
+          <p className="v3-hero__sub">
+            Concerts, beach parties, festivals, workshops — Nicosia to Ayia Napa,
+            all in one place.
+          </p>
+
           <div className="v3-hero__actions">
-            <Link to="/users" className="v3-btn v3-btn--primary">
-              Explore Events
-              <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-            <Link to="/organizers" className="v3-btn v3-btn--ghost">
-              For Organizers
-            </Link>
+            <a
+              href={APP_STORE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="v3-btn v3-btn--primary"
+              aria-label="Download EventaPulse on the App Store"
+            >
+              <Apple size={16} aria-hidden="true" />
+              Download on the App Store
+            </a>
+            <span
+              className="v3-btn v3-btn--ghost is-disabled"
+              role="button"
+              aria-disabled="true"
+              tabIndex={-1}
+            >
+              <Smartphone size={16} aria-hidden="true" />
+              Google Play — coming soon
+            </span>
           </div>
 
           <div className="v3-hero__meta">

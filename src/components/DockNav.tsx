@@ -6,7 +6,6 @@ import {
   Workflow,
   ShieldCheck,
   Mail,
-  Rocket,
   type LucideIcon,
 } from "lucide-react";
 
@@ -20,7 +19,6 @@ type DockItem = {
 
 const items: DockItem[] = [
   { to: "/", label: "Home", icon: Home, end: true },
-  { to: "/beta", label: "Beta", icon: Rocket, highlight: true },
   { to: "/users", label: "For Users", icon: Compass },
   { to: "/organizers", label: "For Organizers", icon: Sparkles },
   { to: "/how-it-works", label: "How It Works", icon: Workflow },

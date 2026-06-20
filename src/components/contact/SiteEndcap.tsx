@@ -23,7 +23,7 @@ export default function SiteEndcap() {
         </h2>
 
         <div className="v3-contact-endcap__socials">
-          <a href="mailto:contact@eventpulse.app" aria-label="Email EventaPulse" className="v3-contact-endcap__social">
+          <a href="mailto:info@eventapulse.com" aria-label="Email EventaPulse" className="v3-contact-endcap__social">
             <Mail size={18} aria-hidden="true" />
           </a>
           <a href="https://instagram.com/eventapulse" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="v3-contact-endcap__social">

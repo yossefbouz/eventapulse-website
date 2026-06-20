@@ -28,7 +28,7 @@ const partners = [
     title: "For press",
     body: "Building a story about Cyprus nightlife or events? We'll share data, quotes, and media assets.",
     cta: "Email press@",
-    href: "mailto:contact@eventpulse.app?subject=Press%20inquiry",
+    href: "mailto:info@eventapulse.com?subject=Press%20inquiry",
     tone: "magenta" as const,
     internal: false,
   },
